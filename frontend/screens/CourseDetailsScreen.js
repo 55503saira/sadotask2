@@ -33,10 +33,10 @@ const courseDetails = {
     description: 'Design and implementation of relational and NoSQL databases.'
   },
   '4': {
-    name: "Operating Systems",
+    name: "Developement operations ",
     icon: 'microsoft-windows',
     timing: 'TTh 10:00 AM - 11:30 AM',
-    instructor: 'Prof. Sara Ahmed',
+    instructor: 'Prof. Shumaila Qayyum',
     room: 'Room 402',
     credits: 4,
     description: 'Study of process management, memory management, and file systems.'
