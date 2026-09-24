@@ -21,7 +21,7 @@ export default function HomeScreen({ navigation }) {
     { id: '2', name: "Artificial Intelligence", icon: 'robot', category: 'AI' },
     { id: '3', name: "Data Science", icon: 'dataScience', category: 'Tech' },
     { id: '4', name: "Operating Systems", icon: 'microsoft-windows', category: 'Tech' },
-    { id: '5', name: "UX Design", icon: 'palette', category: 'Design' },
+    { id: '5', name: "HCI Design", icon: 'palette', category: 'Design' },
     { id: '6', name: "Data Science", icon: 'chart-line', category: 'Data' },
   ];
 
