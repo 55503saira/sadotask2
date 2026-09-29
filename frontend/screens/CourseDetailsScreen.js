@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const courseDetails = {
   '1': { 
-    name: "Mobile App Dev", 
+    name: "MAD", 
     icon: 'cellphone',
     timing: 'MWF 10:00 AM - 11:30 AM',
     instructor: 'Dr. Ahmed Hassan',
