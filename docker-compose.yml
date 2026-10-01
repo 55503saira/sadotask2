@@ -1,0 +1,18 @@
+name: sadotask
+
+services:
+  frontend:
+    build: .
+    image: sadotask-frontend:1.0
+    container_name: sadotask-frontend
+    ports:
+      - "8081:8081"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    image: sadotask-backend:1.0
+    container_name: sadotask-backend
+    ports:
+      - "5000:5000"
