@@ -23,3 +23,4 @@ Version 3
 - created 2 separate container for backend and frontend containing their own separate images
 - checked if both frontend and backend are communicating with each other
 
+
