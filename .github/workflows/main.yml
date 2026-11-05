@@ -1,0 +1,72 @@
+
+name: Build and Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-24.04
+
+    steps:
+      # 1. Get latest GitHub code
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      # 2. Set up Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # 3. Login to Docker Hub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 4. Build and push Docker image
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            aroush44/dotask:latest
+            aroush44/dotask:${{ github.sha }}
+
+      # 5. Connect to EC2 and deploy latest image
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script_stop: true
+          script: |
+            echo "Connected to EC2"
+
+            echo "Pulling latest Docker image..."
+            sudo docker pull aroush44/dotask:latest
+
+            echo "Removing old application container..."
+            sudo docker rm -f dotask-app || true
+
+            echo "Starting updated application..."
+            sudo docker run -d \
+              --name dotask-app \
+              --restart unless-stopped \
+              -p 80:3000 \
+              aroush44/dotask:latest
+
+            echo "Checking deployment..."
+            sudo docker ps
+
+            echo "Deployment completed successfully!"
