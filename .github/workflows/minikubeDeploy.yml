@@ -1,0 +1,40 @@
+name: Deploy to Minikube
+
+on:
+  push:
+    branches: [ main ]   # Adjust to your main branch name if different
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Start Minikube
+        uses: medyagh/setup-minikube@latest
+        # You can specify driver and resources:
+        # with:
+        #   driver: docker
+        #   cpus: 2
+        #   memory: 4096
+
+      - name: Verify cluster
+        run: kubectl get nodes
+
+      - name: Build image inside Minikube
+        run: |
+          # Use Minikube's Docker daemon to build, ensuring the image is directly visible to the cluster
+          eval $(minikube docker-env)
+          docker build -t your-image:latest .
+
+      - name: Deploy to Minikube
+        run: |
+          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
+          kubectl rollout status deployment/your-app --timeout=120s
+
+      - name: Get service URL
+        run: |
+          minikube service your-app-service --url
