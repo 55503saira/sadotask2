@@ -6,15 +6,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: your-app
+      app: StudentApp
   template:
     metadata:
       labels:
-        app: your-app
+        app: StudentApp
     spec:
       containers:
-        - name: your-app
-          image: your-image:latest
+        - name: StudentApp
+          image: sadotask:version1
           imagePullPolicy: Never   # Critical: use local image
           ports:
             - containerPort: 8080 # Modify according to your app port
