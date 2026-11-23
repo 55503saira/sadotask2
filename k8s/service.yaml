@@ -7,6 +7,6 @@ spec:
   selector:
     app: studentapp
   ports:
-    - port: 8080
-      targetPort: 8080
-      nodePort: 30007   # Optional, specify a port in the 30000-32767 range
+    - port: 8081
+      targetPort: 8081
+      nodePort: 30007
