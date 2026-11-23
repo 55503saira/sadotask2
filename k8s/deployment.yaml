@@ -6,14 +6,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: StudentApp
+      app: studentapp
   template:
     metadata:
       labels:
-        app: StudentApp
+        app: studentapp
     spec:
       containers:
-        - name: StudentApp
+        - name: studentapp
           image: sadotask:version1
           imagePullPolicy: Never   # Critical: use local image
           ports:
